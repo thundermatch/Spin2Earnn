@@ -1,0 +1,209 @@
+:root {
+    --primary: #8a2be2; /* BlueViolet */
+    --secondary: #ff00ff; /* Magenta */
+    --bg: #0f0c29;
+    --card-bg: rgba(255, 255, 255, 0.1);
+    --text: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: var(--text);
+    height: 100vh;
+    overflow: hidden;
+}
+
+.app-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 70px; /* Space for nav */
+}
+
+/* HEADER */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+}
+
+.balance-box {
+    background: rgba(255,215,0, 0.2);
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid gold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+}
+
+/* PAGES */
+main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.hidden-page { display: none; }
+.active-page { display: block; animation: fadeIn 0.3s; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* WHEEL */
+.wheel-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 30px auto;
+}
+
+.pointer {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    font-size: 30px;
+    color: gold;
+    text-shadow: 0 0 10px orange;
+}
+
+.wheel {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 5px solid var(--secondary);
+    box-shadow: 0 0 20px var(--primary);
+    background: conic-gradient(
+        #4b0082 0deg 72deg,    /* 1 */
+        #800080 72deg 144deg,  /* 2 */
+        #9932cc 144deg 216deg, /* 3 */
+        #da70d6 216deg 288deg, /* 10 */
+        #24243e 288deg 360deg  /* 0 */
+    );
+    position: relative;
+    transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); /* Smooth ease-out */
+}
+
+/* Center Cat */
+.center-cat {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    box-shadow: 0 0 15px rgba(255,255,255,0.5);
+    z-index: 5;
+}
+
+/* BUTTONS */
+.glow-btn {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 15px var(--primary);
+    margin-top: 20px;
+    width: 80%;
+}
+
+.glow-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* CARDS & INPUTS */
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
+    background: rgba(0,0,0,0.3);
+    color: white;
+}
+
+.referral-link-box {
+    display: flex;
+    gap: 10px;
+}
+
+/* NAV */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #1a1a2e;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0;
+    border-top: 1px solid #333;
+    z-index: 100;
+}
+
+.nav-item {
+    color: #888;
+    text-align: center;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.nav-item span {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 3px;
+}
+
+.nav-item.active {
+    color: var(--secondary);
+    text-shadow: 0 0 10px var(--secondary);
+}
+
+.warning { color: #ff4444; font-size: 0.8rem; margin-top: 10px; }
+
+/* TOAST */
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    z-index: 1000;
+    transition: opacity 0.3s;
+}
+.toast.hidden { opacity: 0; pointer-events: none; }
